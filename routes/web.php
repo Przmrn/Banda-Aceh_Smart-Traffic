@@ -86,3 +86,9 @@ Route::group(['middleware' => 'guest'], function () {
 Route::get('/login', function () {
     return view('session/login-session');
 })->name('login');
+
+// Route untuk menampilkan halaman dashboard dengan form upload
+Route::get('/dashboard', [App\Http\Controllers\TrafficController::class, 'showDashboard'])->name('dashboard');
+
+// Route untuk menangani proses upload dan menampilkan hasil
+Route::post('/dashboard/analyze', [App\Http\Controllers\TrafficController::class, 'analyzeVideo'])->name('dashboard.analyze');
