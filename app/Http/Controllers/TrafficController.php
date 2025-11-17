@@ -23,6 +23,7 @@ class TrafficController extends Controller
      */
     public function analyzeVideo(Request $request)
     {
+        ini_set('max_execution_time', 600); // 600 detik = 10 menit
         $request->validate([
             'video' => 'required|file|mimetypes:video/mp4,video/avi,video/mpeg|max:51200', // max 50MB
         ]);
