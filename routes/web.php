@@ -87,6 +87,8 @@ Route::get('/login', function () {
     return view('session/login-session');
 })->name('login');
 
+Route::get('/history', [App\Http\Controllers\TrafficController::class, 'showHistory'])->name('history');
+
 // Route untuk menampilkan halaman dashboard dengan form upload
 Route::get('/dashboard', [App\Http\Controllers\TrafficController::class, 'showDashboard'])->name('dashboard');
 

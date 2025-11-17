@@ -7,24 +7,35 @@
         <div class="col-lg-7 mb-lg-0 mb-4">
             <div class="card">
                 <div class="card-header pb-0">
-                    <h6>Analisis Kepadatan Lalu Lintas</h6>
+                    <h6>Live Stream CCTV</h6>
                 </div>
-                <div class="card-body">
-                    <form action="{{ route('dashboard.analyze') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="video" class="form-label">Upload Video CCTV (MP4, AVI, MPEG)</label>
-                            <input class="form-control" type="file" id="video" name="video" required>
-                        </div>
+                <div class="card-body p-3">
+                    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-                        @error('video')
-                        <div class="alert alert-danger text-white" role="alert">
-                            <strong>Error!</strong> {{ $message }}
-                        </div>
-                        @enderror
+                    <video id="cctv-player" controls autoplay muted style="width: 100%; border-radius: 0.5rem; background-color: #000;"></video>
 
-                        <button type="submit" class="btn bg-gradient-primary">Analisis Sekarang</button>
-                    </form>
+                    <script>
+                        var video = document.getElementById('cctv-player');
+
+                        // !! PENTING !!
+                        // GANTI DENGAN URL STREAM .m3u8 ANDA
+                        var streamUrl = 'https://atcs-dishub.bandung.go.id:1990/PaskalPTZ2/stream.m3u8'; // <-- GANTI INI
+
+                        if (Hls.isSupported()) {
+                            var hls = new Hls();
+                            hls.loadSource(streamUrl);
+                            hls.attachMedia(video);
+                            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                                video.play();
+                            });
+                        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                            // Dukungan HLS asli (misal di Safari)
+                            video.src = streamUrl;
+                            video.addEventListener('loadedmetadata', function() {
+                                video.play();
+                            });
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -32,56 +43,83 @@
         <div class="col-lg-5">
             <div class="card h-100">
                 <div class="card-header pb-0">
-                    <h6>Hasil Analisis</h6>
+                    <h6>Analisis Real-Time</h6>
                 </div>
                 <div class="card-body">
-                    @if(session('error'))
-                        <div class="alert alert-danger text-white" role="alert">
-                            <strong>Gagal!</strong> {{ session('error') }}
-                        </div>
-                    @endif
-
-                    @if(session('statistics'))
-
-                        @if(session('processed_video_url'))
-                            <div class="mb-3">
-                                <h6 class="text-sm mb-1">Video Analysis</h6>
-                                <video controls style="width: 100%; border-radius: 0.5rem; max-height: 300px; background-color: #000;">
-
-                                    <source src="{{ session('processed_video_url') }}" type="video/mp4">
-
-                                    Browser Anda tidak mendukung pemutaran video ini.
-                                </video>
-                            </div>
-                        @endif
-
-                        @php
-                            $stats = session('statistics');
-                        @endphp
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Rata-rata Kepadatan (Kendaraan)
-                                <span class="badge bg-gradient-primary rounded-pill">{{ number_format($stats['rata_rata_kepadatan'], 2) }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Kepadatan Maksimum (Kendaraan)
-                                <span class="badge bg-gradient-danger rounded-pill">{{ number_format($stats['kepadatan_maksimum'], 2) }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Total Frame Dianalisis
-                                <span class="badge bg-gradient-secondary rounded-pill">{{ $stats['total_frame'] }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Durasi Kepadatan Tinggi
-                                <span class="badge bg-gradient-warning rounded-pill">{{ $stats['durasi_kepadatan_tinggi'] }} detik</span>
-                            </li>
-                        </ul>
-                    @else
-                        <p class="text-sm">Upload video untuk melihat statistik dan preview di sini.</p>
-                    @endif
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Kepadatan Saat Ini (Kendaraan)
+                            <span id="realtime-car-count" class="badge bg-gradient-primary rounded-pill h4">...</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Status
+                            <span id="realtime-status" class="badge bg-gradient-secondary rounded-pill">Menghubungkan...</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
-@endsection
+@endsection @push('scripts')
+    {{-- <script src="{{ asset('js/app.js') }}"></script>  --}}
+
+    <script type="module">
+        // Ambil elemen HTML
+        const carCountElement = document.getElementById('realtime-car-count');
+        const statusElement = document.getElementById('realtime-status');
+
+        // Pastikan variabel VITE_PUSHER... sudah diatur di .env
+        // Jika tidak, Anda bisa hardcode di sini
+        if (typeof window.Echo === 'undefined') {
+            // Jika Echo belum di-setup di app.js, kita setup minimal di sini
+            // (Ini BUKAN praktik terbaik, idealnya ada di app.js/bootstrap.js)
+            console.error('Laravel Echo belum di-setup. Silakan setup di bootstrap.js');
+        } else {
+            // Konfigurasi Echo untuk Soketi
+            window.Echo.options.host = window.location.hostname + ':6001';
+
+            console.log("Mencoba terhubung ke WebSocket...");
+            statusElement.innerText = 'Menghubungkan...';
+
+            window.Echo.channel('traffic-channel')
+                .listen('TrafficDataUpdated', (e) => {
+                    console.log("Data diterima:", e.statistics);
+
+                    // Update angka di dashboard
+                    let count = e.statistics.car_count;
+                    carCountElement.innerText = count;
+
+                    // Update status
+                    if (count > 10) {
+                        statusElement.innerText = 'Padat';
+                        statusElement.className = 'badge bg-gradient-danger rounded-pill';
+                    } else if (count > 5) {
+                        statusElement.innerText = 'Ramai';
+                        statusElement.className = 'badge bg-gradient-warning rounded-pill';
+                    } else {
+                        statusElement.innerText = 'Lancar';
+                        statusElement.className = 'badge bg-gradient-success rounded-pill';
+                    }
+                })
+                .error((error) => {
+                    console.error("Kesalahan WebSocket:", error);
+                    statusElement.innerText = 'Koneksi Gagal';
+                    statusElement.className = 'badge bg-gradient-danger rounded-pill';
+                });
+
+            // Handle koneksi awal
+            window.Echo.connector.socket.on('connect', () => {
+                console.log('Berhasil terhubung ke WebSocket.');
+                statusElement.innerText = 'Terhubung';
+                statusElement.className = 'badge bg-gradient-success rounded-pill';
+            });
+
+            window.Echo.connector.socket.on('disconnect', () => {
+                console.log('Koneksi WebSocket terputus.');
+                statusElement.innerText = 'Terputus';
+                statusElement.className = 'badge bg-gradient-danger rounded-pill';
+            });
+        }
+    </script>
+@endpush
