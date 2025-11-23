@@ -21,22 +21,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/traffic-update', function (Request $request) {
-    // Validasi data (opsional tapi disarankan)
     $stats = $request->validate([
         'car_count' => 'required|integer',
     ]);
 
-    // LANGKAH BARU 1: Simpan ke Database
+    \Log::info('Received traffic data:', $stats);
+
     TrafficLog::create([
         'vehicle_count' => $stats['car_count'],
-        'location_name' => 'simpang_pasteur' // Ganti jika Anda menganalisis lokasi lain
+        'location_name' => 'simpang_pasteur'
     ]);
 
-    // LANGKAH 2: Tetap Siarkan ke Dashboard
-    TrafficDataUpdated::dispatch($stats);
-
-    // Siarkan event ke semua pendengar
-    TrafficDataUpdated::dispatch($stats);
+    \Log::info('About to broadcast...');
+    broadcast(new TrafficDataUpdated($stats));
+    \Log::info('Broadcast called.');
 
     return response()->json(['status' => 'success']);
 });

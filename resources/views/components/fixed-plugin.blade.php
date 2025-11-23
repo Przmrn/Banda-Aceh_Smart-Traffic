@@ -5,8 +5,8 @@
     <div class="card shadow-lg ">
       <div class="card-header pb-0 pt-3 ">
         <div class="{{ (Request::is('rtl') ? 'float-end' : 'float-start') }}">
-          <h5 class="mt-3 mb-0">Soft UI Configurator</h5>
-          <p>See our dashboard options.</p>
+          <h5 class="mt-3 mb-0">Dashboard Configurator</h5>
+          <p>Customize the dashboard looks.</p>
         </div>
         <div class="{{ (Request::is('rtl') ? 'float-start mt-4' : 'float-end mt-4') }}">
           <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
@@ -16,7 +16,17 @@
         <!-- End Toggle Button -->
       </div>
       <hr class="horizontal dark my-1">
-      <div class="card-body pt-sm-3 pt-0">
+      <div class="card-body pt-sm-3 pt-0 overflow-auto">
+        <!-- Theme Selection -->
+        <div class="mt-3">
+          <h6 class="mb-2">Theme</h6>
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <button class="btn btn-sm btn-outline-primary theme-btn" data-theme="light">Light</button>
+            <button class="btn btn-sm btn-outline-primary theme-btn" data-theme="dark">Dark</button>
+            <button class="btn btn-sm btn-outline-primary theme-btn" data-theme="system">System</button>
+          </div>
+        </div>
+        <hr class="horizontal dark my-3">
         <!-- Sidebar Backgrounds -->
         <div>
           <h6 class="mb-0">Sidebar Colors</h6>
@@ -64,3 +74,93 @@
       </div>
     </div>
   </div>
+
+@push('scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Theme selection
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const htmlEl = document.documentElement;
+    
+    // Load saved theme from localStorage
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+    
+    // Set active button
+    themeBtns.forEach(btn => {
+      if (btn.dataset.theme === savedTheme) {
+        btn.classList.add('active');
+        btn.classList.remove('btn-outline-primary');
+        btn.classList.add('btn-primary');
+      }
+      
+      btn.addEventListener('click', function() {
+        const theme = this.dataset.theme;
+        setTheme(theme);
+        
+        // Update button states
+        themeBtns.forEach(b => {
+          b.classList.remove('active', 'btn-primary');
+          b.classList.add('btn-outline-primary');
+        });
+        
+        this.classList.add('active', 'btn-primary');
+        this.classList.remove('btn-outline-primary');
+        
+        // Save to localStorage
+        localStorage.setItem('theme', theme);
+      });
+    });
+    
+    function setTheme(theme) {
+      if (theme === 'system') {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        htmlEl.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      } else {
+        htmlEl.setAttribute('data-theme', theme);
+      }
+    }
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (localStorage.getItem('theme') === 'system') {
+        setTheme('system');
+      }
+    });
+  });
+</script>
+<style>
+  [data-theme="dark"] {
+    --bs-body-bg: #1a2035;
+    --bs-body-color: #fff;
+    --bs-gray-100: #2a3558;
+    --bs-gray-200: #1e2a4a;
+    --bs-gray-300: #1a2035;
+    --bs-light: #1a2035;
+    --bs-dark: #f8f9fa;
+    --bs-card-bg: #1e2a4a;
+    --bs-card-color: #fff;
+  }
+  
+  [data-theme="dark"] .card,
+  [data-theme="dark"] .dropdown-menu,
+  [data-theme="dark"] .form-control,
+  [data-theme="dark"] .modal-content {
+    background-color: var(--bs-card-bg);
+    color: var(--bs-body-color);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  [data-theme="dark"] .text-dark {
+    color: #fff !important;
+  }
+  
+  [data-theme="dark"] .bg-white {
+    background-color: var(--bs-card-bg) !important;
+  }
+  
+  [data-theme="dark"] .bg-gray-100 {
+    background-color: var(--bs-gray-100) !important;
+  }
+</style>
+@endpush

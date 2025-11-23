@@ -22,12 +22,33 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['middleware' => 'auth'], function () {
+// Test route for WebSocket
+Route::get('/test-ws', function () {
+    event(new App\Events\TrafficDataUpdated([
+        'total_vehicles' => 5,
+        'streams' => [
+            [
+                'id' => 'stream-1',
+                'name' => 'Simpang Lima',
+                'car_count' => 3,
+                'timestamp' => now()
+            ],
+            [
+                'id' => 'stream-2',
+                'name' => 'Simpang Emat',
+                'car_count' => 2,
+                'timestamp' => now()
+            ]
+        ]
+    ]));
+    return 'Test event dispatched!';
+});
 
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [HomeController::class, 'home']);
-	Route::get('dashboard', function () {
-		return view('dashboard');
-	})->name('dashboard');
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
 	Route::get('billing', function () {
 		return view('billing');
@@ -94,3 +115,8 @@ Route::get('/dashboard', [App\Http\Controllers\TrafficController::class, 'showDa
 
 // Route untuk menangani proses upload dan menampilkan hasil
 Route::post('/dashboard/analyze', [App\Http\Controllers\TrafficController::class, 'analyzeVideo'])->name('dashboard.analyze');
+
+Route::get('/test-broadcast', function() {
+    broadcast(new \App\Events\TrafficDataUpdated(['car_count' => 999]));
+    return 'Broadcast sent!';
+});

@@ -1,26 +1,74 @@
 import cv2
 import onnxruntime as ort
 import numpy as np
-import requests # Library untuk mengirim data ke Laravel
+import requests
 import time
 import os
+import math
 
 # --- PENGATURAN ---
-# URL Stream CCTV Anda (ganti ini)
-STREAM_URL = "https://atcs-dishub.bandung.go.id:1990/PaskalPTZ2/stream.m3u8"
+STREAMS = [
+    {
+        'id': 'stream-1',
+        'name': 'Simpang Lima',
+        'url': 'https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8?session=YfkSxaizRZbFzmGAk4arpy',
+        'car_count': 0,
+        'last_update': time.time()
+    },
+    {
+        'id': 'stream-2',
+        'name': 'Simpang Emat',
+        'url': 'https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8?session=DouojpAuTXLSyHxrAhZQyz',
+        'car_count': 0,
+        'last_update': time.time()
+    }
+]
 
-# Endpoint Webhook Laravel (yang akan kita buat di Langkah 5)
 LARAVEL_WEBHOOK_URL = "http://127.0.0.1:8000/api/traffic-update"
+UPDATE_INTERVAL = 5  # seconds between updates
 
-# Pengaturan Model (salin dari app.py)
+# Pengaturan Model
 MODEL_PATH = 'yolov8n.onnx'
-SCORE_THRESHOLD = 0.5
-IOU_THRESHOLD = 0.5
+SCORE_THRESHOLD = 0.25  # Lowered for night-time detection
+IOU_THRESHOLD = 0.4     # More lenient overlap for night-time
 MODEL_HEIGHT = 640
 MODEL_WIDTH = 640
 CLASS_NAMES = ['person', 'bicycle', 'car', 'motorbike', 'aeroplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'sofa', 'pottedplant', 'bed', 'diningtable', 'toilet', 'tvmonitor', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush']
 
-# --- FUNGSI DETEKSI (salin dari app.py) ---
+# Pengaturan Enhancement
+APPLY_CLAHE = True  # Set False untuk disable CLAHE
+APPLY_GAMMA = True  # Set False untuk disable gamma correction
+GAMMA_VALUE = 1.2   # > 1.0 brighten, < 1.0 darken (range: 0.5 - 2.0 biasanya)
+
+# --- FUNGSI ENHANCEMENT ---
+def apply_clahe(frame):
+    """CLAHE untuk meningkatkan kontras lokal"""
+    lab = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
+    l, a, b = cv2.split(lab)
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    l = clahe.apply(l)
+    enhanced = cv2.merge([l, a, b])
+    return cv2.cvtColor(enhanced, cv2.COLOR_LAB2BGR)
+
+def apply_gamma_correction(frame, gamma=1.2):
+    """Gamma correction untuk brightness adjustment"""
+    inv_gamma = 1.0 / gamma
+    table = np.array([((i / 255.0) ** inv_gamma) * 255 for i in range(256)]).astype("uint8")
+    return cv2.LUT(frame, table)
+
+def enhance_frame(frame):
+    """Pipeline enhancement: gamma dulu, baru CLAHE"""
+    enhanced = frame.copy()
+
+    if APPLY_GAMMA:
+        enhanced = apply_gamma_correction(enhanced, GAMMA_VALUE)
+
+    if APPLY_CLAHE:
+        enhanced = apply_clahe(enhanced)
+
+    return enhanced
+
+# --- FUNGSI DETEKSI ---
 def preprocess_frame(frame, target_width, target_height):
     img = cv2.resize(frame, (target_width, target_height))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -28,34 +76,182 @@ def preprocess_frame(frame, target_width, target_height):
     img = np.transpose(img, (2, 0, 1))
     return np.expand_dims(img, axis=0)
 
-def run_detection_and_get_stats(output_from_model, original_width, original_height, model_width, model_height):
+def run_detection_and_get_stats(output_from_model, original_width, original_height, model_width, model_height, frame=None):
     outputs = np.transpose(np.squeeze(output_from_model[0]))
     boxes, scores, class_ids = [], [], []
     x_factor, y_factor = original_width / model_width, original_height / model_height
 
+    # Define ROI (Region of Interest) - adjust these values based on your camera view
+    roi_y_start = int(original_height * 0.4)  # Start ROI at 40% from top
+    roi_y_end = original_height  # End at bottom of frame
+    roi_x_start = int(original_width * 0.1)  # 10% from left
+    roi_x_end = int(original_width * 0.9)   # 90% from left
+
     for row in outputs:
         class_scores = row[4:]
         max_score, class_id = np.max(class_scores), np.argmax(class_scores)
-        if max_score > SCORE_THRESHOLD:
+
+        # Only consider vehicle classes
+        if max_score > SCORE_THRESHOLD and CLASS_NAMES[class_id] in ['car', 'bus', 'truck', 'motorbike']:
             scores.append(max_score)
             class_ids.append(class_id)
             cx, cy, w, h = row[:4]
-            boxes.append([int((cx - w / 2) * x_factor), int((cy - h / 2) * y_factor), int(w * x_factor), int(h * y_factor)])
+            x, y = int((cx - w/2) * x_factor), int((cy - h/2) * y_factor)
+            w, h = int(w * x_factor), int(h * y_factor)
 
-    indices = cv2.dnn.NMSBoxes(boxes, np.array(scores), SCORE_THRESHOLD, IOU_THRESHOLD)
-    car_count = 0
-    if len(indices) > 0:
-        for i in indices.flatten():
-            class_name = CLASS_NAMES[class_ids[i]]
-            if class_name in ['car', 'bus', 'truck', 'motorbike']:
-                car_count += 1
-    return car_count
+            # Check if the center of the box is within ROI
+            box_center_x = x + w//2
+            box_center_y = y + h//2
+            if (roi_x_start <= box_center_x <= roi_x_end and
+                roi_y_start <= box_center_y <= roi_y_end):
+                boxes.append([x, y, w, h])
 
-# --- FUNGSI UTAMA ---
+    # Apply NMS (Non-Maximum Suppression) to remove overlapping boxes
+    indices = cv2.dnn.NMSBoxes(boxes, scores, SCORE_THRESHOLD, IOU_THRESHOLD) if boxes else []
+
+    # If you want to visualize the detections
+    if frame is not None:
+        # Draw ROI
+        cv2.rectangle(frame, (roi_x_start, roi_y_start), (roi_x_end, roi_y_end), (0, 0, 255), 2)
+        cv2.putText(frame, "DETECTION ZONE", (roi_x_start + 10, roi_y_start + 25),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+
+        if len(indices) > 0:
+            for i in indices.flatten():
+                x, y, w, h = boxes[i]
+                # Draw bounding box
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                # Draw label background
+                label = f"{CLASS_NAMES[class_ids[i]].upper()}: {scores[i]:.1f}"
+                (label_w, label_h), _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
+                cv2.rectangle(frame, (x, y - 20), (x + label_w, y), (0, 255, 0), -1)
+                # Draw label text
+                cv2.putText(frame, label, (x, y - 5),
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
+
+    return len(indices)
+
+def process_stream(stream, session, input_name):
+    print(f"Processing stream: {stream['name']}")
+    cap = cv2.VideoCapture(stream['url'])
+
+    if not cap.isOpened():
+        print(f"Error: Could not open video stream {stream['url']}")
+        return
+
+    frame_count = 0
+    detection_interval = 3  # Process every 3rd frame
+    last_debug_save = time.time()
+
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print(f"Error reading frame from {stream['name']}. Reconnecting...")
+            cap.release()
+            time.sleep(5)  # Wait before reconnecting
+            cap = cv2.VideoCapture(stream['url'])
+            continue
+
+        frame_count += 1
+        if frame_count % detection_interval != 0:
+            continue
+
+        try:
+            # Create a copy for display
+            display_frame = frame.copy()
+
+            # Enhance frame
+            enhanced_frame = enhance_frame(frame)
+
+            # Resize and preprocess for model
+            input_tensor = preprocess_frame(enhanced_frame, MODEL_WIDTH, MODEL_HEIGHT)
+
+            # Run inference
+            start_time = time.time()
+            outputs = session.run(None, {input_name: input_tensor})
+            inference_time = time.time() - start_time
+
+            # Get detections with visualization
+            car_count = run_detection_and_get_stats(
+                outputs, frame.shape[1], frame.shape[0],
+                MODEL_WIDTH, MODEL_HEIGHT, display_frame
+            )
+
+            # Add FPS and vehicle count to display
+            fps_text = f"FPS: {1.0 / (inference_time + 0.0001):.1f}"
+            count_text = f"Vehicles: {car_count}"
+            cv2.putText(display_frame, fps_text, (10, 30),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            cv2.putText(display_frame, count_text, (10, 60),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+
+            # Update stream data
+            stream['car_count'] = car_count
+            stream['last_update'] = time.time()
+
+            # For debugging: Save frame with detections every 10 seconds
+            current_time = time.time()
+            if current_time - last_debug_save > 10:  # Save every 10 seconds
+                debug_filename = f"debug_{stream['id']}_{int(current_time)}.jpg"
+                cv2.imwrite(debug_filename, display_frame)
+                print(f"Saved debug image: {debug_filename}")
+                last_debug_save = current_time
+
+        except Exception as e:
+            print(f"Error processing frame: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            continue
+
+        # Small delay to prevent high CPU usage
+        time.sleep(0.05)
+
+    cap.release()
+
+def send_updates(streams):
+    while True:
+        try:
+            total_vehicles = sum(stream['car_count'] for stream in streams)
+
+            # Prepare data for each stream
+            streams_data = [
+                {
+                    'id': stream['id'],
+                    'name': stream['name'],
+                    'car_count': stream['car_count'],
+                    'timestamp': time.time()
+                } for stream in streams
+            ]
+
+            # Send to Laravel
+            data = {
+                'total_vehicles': total_vehicles,
+                'streams': streams_data,
+                'timestamp': time.time()
+            }
+
+            try:
+                response = requests.post(LARAVEL_WEBHOOK_URL, json=data, timeout=5)
+                if response.status_code == 200:
+                    print(f"Update sent successfully: {data}")
+                else:
+                    print(f"Failed to send update: {response.status_code} - {response.text}")
+            except requests.exceptions.RequestException as e:
+                print(f"Error sending update: {e}")
+
+            time.sleep(UPDATE_INTERVAL)
+
+        except Exception as e:
+            print(f"Error in update thread: {e}")
+            time.sleep(5)  # Wait before retrying
+
+# ... (previous imports and functions remain the same until start_worker)
+
 def start_worker():
     print(f"Memuat model {MODEL_PATH}...")
+    print(f"Enhancement: CLAHE={APPLY_CLAHE}, Gamma={APPLY_GAMMA} (value={GAMMA_VALUE})")
+
     try:
-        # Gunakan GPU jika ada, jika tidak, gunakan CPU
         providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
         session = ort.InferenceSession(MODEL_PATH, providers=providers)
         print(f"Model dimuat, menggunakan: {session.get_providers()[0]}")
@@ -64,52 +260,31 @@ def start_worker():
         return
 
     input_name = session.get_inputs()[0].name
+    import threading
 
-    while True:
-        try:
-            print(f"Mencoba terhubung ke stream: {STREAM_URL}...")
-            cap = cv2.VideoCapture(STREAM_URL)
-            if not cap.isOpened():
-                print("Gagal membuka stream. Mencoba lagi dalam 10 detik...")
-                time.sleep(10)
-                continue
+    # Start update thread
+    update_thread = threading.Thread(target=send_updates, args=(STREAMS,), daemon=True)
+    update_thread.start()
 
-            print("Berhasil terhubung ke stream. Memulai analisis...")
-            while cap.isOpened():
-                ret, frame = cap.read()
-                if not ret:
-                    print("Stream terputus. Menghubungkan ulang...")
-                    break # Keluar dari loop dalam untuk reconnect
+    # Start processing each stream in a separate thread
+    threads = []
+    for stream in STREAMS:
+        t = threading.Thread(target=process_stream, args=(stream, session, input_name), daemon=True)
+        t.start()
+        threads.append(t)
+        time.sleep(1)  # Stagger thread starts
 
-                # 1. Pre-process
-                input_data = preprocess_frame(frame, MODEL_WIDTH, MODEL_HEIGHT)
+    try:
+        # Keep main thread alive
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("\nMenghentikan worker...")
 
-                # 2. Deteksi
-                result = session.run(None, {input_name: input_data})
-
-                # 3. Dapatkan Statistik
-                w, h = int(cap.get(3)), int(cap.get(4))
-                car_count = run_detection_and_get_stats(result, w, h, MODEL_WIDTH, MODEL_HEIGHT)
-
-                stats = {'car_count': car_count}
-                print(f"Kirim data ke Laravel: {stats}")
-
-                try:
-                    # 4. Kirim ke Laravel
-                    requests.post(LARAVEL_WEBHOOK_URL, json=stats, timeout=2)
-                except requests.exceptions.RequestException as e:
-                    print(f"Gagal mengirim ke Laravel: {e}")
-
-                # 5. Tunggu 1 detik sebelum memproses frame berikutnya
-                # Ini setara dengan 1 FPS, yang cukup untuk statistik
-                time.sleep(1)
-
-        except KeyboardInterrupt:
-            print("Worker dihentikan.")
-            break
-        except Exception as e:
-            print(f"Error di loop utama: {e}. Restart dalam 10 detik.")
-            time.sleep(10)
+    # Wait for all threads to finish
+    for t in threads:
+        t.join()
+    update_thread.join()
 
 if __name__ == "__main__":
     start_worker()

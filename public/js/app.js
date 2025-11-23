@@ -2072,18 +2072,10 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
-/* harmony import */ var pusher_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
-/* harmony import */ var pusher_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(pusher_js__WEBPACK_IMPORTED_MODULE_2__);
-var _import$meta$env$VITE, _import$meta$env$VITE2, _import$meta$env$VITE3, _import$meta$env$VITE4, _Echo;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
+var _process$env$MIX_REVE, _process$env$MIX_REVE2, _process$env$MIX_REVE3, _process$env$MIX_REVE4;
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-
-window._ = (lodash__WEBPACK_IMPORTED_MODULE_0___default());
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -2099,19 +2091,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 
-
-window.Pusher = (pusher_js__WEBPACK_IMPORTED_MODULE_2___default());
-window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_1__["default"]((_Echo = {
-  broadcaster: 'pusher',
-  key: /* unsupported import.meta.env.VITE_PUSHER_KEY */ undefined.VITE_PUSHER_KEY,
-  cluster: (_import$meta$env$VITE = /* unsupported import.meta.env.VITE_PUSHER_APP_CLUSTER */ undefined.VITE_PUSHER_APP_CLUSTER) !== null && _import$meta$env$VITE !== void 0 ? _import$meta$env$VITE : 'mt1',
-  wsHost: /* unsupported import.meta.env.VITE_PUSHER_HOST */ undefined.VITE_PUSHER_HOST ? /* unsupported import.meta.env.VITE_PUSHER_HOST */ undefined.VITE_PUSHER_HOST : "ws-".concat(/* unsupported import.meta.env.VITE_PUSHER_APP_CLUSTER */ undefined.VITE_PUSHER_APP_CLUSTER, ".pusher.com"),
-  wsPort: (_import$meta$env$VITE2 = /* unsupported import.meta.env.VITE_PUSHER_PORT */ undefined.VITE_PUSHER_PORT) !== null && _import$meta$env$VITE2 !== void 0 ? _import$meta$env$VITE2 : 80,
-  wssPort: (_import$meta$env$VITE3 = /* unsupported import.meta.env.VITE_PUSHER_PORT */ undefined.VITE_PUSHER_PORT) !== null && _import$meta$env$VITE3 !== void 0 ? _import$meta$env$VITE3 : 443,
-  forceTLS: ((_import$meta$env$VITE4 = /* unsupported import.meta.env.VITE_PUSHER_SCHEME */ undefined.VITE_PUSHER_SCHEME) !== null && _import$meta$env$VITE4 !== void 0 ? _import$meta$env$VITE4 : 'https') === 'https',
-  // ==== KHUSUS UNTUK SOKETI (NON-TLS/HTTP) ====
+window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
+window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  broadcaster: 'reverb',
+  key: "oryrzydwbt4dbd2dup3u",
+  // Gunakan Host & Port dari .env atau fallback ke default Reverb
+  wsHost: (_process$env$MIX_REVE = "localhost") !== null && _process$env$MIX_REVE !== void 0 ? _process$env$MIX_REVE : window.location.hostname,
+  wsPort: (_process$env$MIX_REVE2 = "8080") !== null && _process$env$MIX_REVE2 !== void 0 ? _process$env$MIX_REVE2 : 8080,
+  wssPort: (_process$env$MIX_REVE3 = "8080") !== null && _process$env$MIX_REVE3 !== void 0 ? _process$env$MIX_REVE3 : 8080,
+  // Paksa HTTP (Non-Secure) untuk localhost
+  forceTLS: ((_process$env$MIX_REVE4 = "http") !== null && _process$env$MIX_REVE4 !== void 0 ? _process$env$MIX_REVE4 : 'https') === 'https',
   enabledTransports: ['ws', 'wss']
-}, _defineProperty(_Echo, "wsHost", window.location.hostname), _defineProperty(_Echo, "wsPort", 6001), _defineProperty(_Echo, "forceTLS", false), _defineProperty(_Echo, "disableStats", true), _Echo));
+});
 
 /***/ }),
 
@@ -25094,18 +25085,6 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	

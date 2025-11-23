@@ -1,6 +1,4 @@
 window._ = require('lodash');
-import _ from 'lodash';
-window._ = _;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -20,22 +18,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 import Echo from 'laravel-echo';
 
-import Pusher from 'pusher-js';
-window.Pusher = Pusher;
+window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: import.meta.env.VITE_PUSHER_KEY,
-    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
-    wsHost: import.meta.env.VITE_PUSHER_HOST ? import.meta.env.VITE_PUSHER_HOST : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
-    wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-    wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-    forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
+    broadcaster: 'reverb',
+    key: process.env.MIX_REVERB_APP_KEY,
 
-    // ==== KHUSUS UNTUK SOKETI (NON-TLS/HTTP) ====
+    // Gunakan Host & Port dari .env atau fallback ke default Reverb
+    wsHost: process.env.MIX_REVERB_HOST ?? window.location.hostname,
+    wsPort: process.env.MIX_REVERB_PORT ?? 8080,
+    wssPort: process.env.MIX_REVERB_PORT ?? 8080,
+
+    // Paksa HTTP (Non-Secure) untuk localhost
+    forceTLS: (process.env.MIX_REVERB_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
-    wsHost: window.location.hostname, // Menggunakan host Anda (127.0.0.1)
-    wsPort: 6001, // Port Soketi
-    forceTLS: false, // Wajib false untuk http
-    disableStats: true,
 });
