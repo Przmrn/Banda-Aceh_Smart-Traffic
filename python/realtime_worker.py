@@ -28,8 +28,8 @@ LARAVEL_WEBHOOK_URL = "http://127.0.0.1:8000/api/traffic-update"
 UPDATE_INTERVAL = 5  # seconds between updates
 
 # Pengaturan Model
-MODEL_PATH = 'yolov8n.onnx'
-SCORE_THRESHOLD = 0.25  # Lowered for night-time detection
+MODEL_PATH = 'yolov8m.onnx'
+SCORE_THRESHOLD = 0.15  # Lowered for night-time detection
 IOU_THRESHOLD = 0.4     # More lenient overlap for night-time
 MODEL_HEIGHT = 640
 MODEL_WIDTH = 640
@@ -156,7 +156,8 @@ def process_stream(stream, session, input_name):
         return
 
     frame_count = 0
-    detection_interval = 3  # Process every 3rd frame
+    detection_history = []  # NEW LINE - track recent detections    
+    detection_interval = 1  # Process every 3rd frame
     last_debug_save = time.time()
 
     while True:
@@ -196,13 +197,17 @@ def process_stream(stream, session, input_name):
             # Add FPS and vehicle count to display
             fps_text = f"FPS: {1.0 / (inference_time + 0.0001):.1f}"
             count_text = f"Vehicles: {car_count}"
-            cv2.putText(display_frame, fps_text, (10, 30),
-                       cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-            cv2.putText(display_frame, count_text, (10, 60),
-                       cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            # Add to detection history
+            detection_history.append(car_count)
+            if len(detection_history) > 20:  # Keep last 20 frames
+                detection_history.pop(0)
+            # cv2.putText(display_frame, fps_text, (10, 30),
+            #            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            # cv2.putText(display_frame, count_text, (10, 60),
+            #            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
 
             # Update stream data
-            stream['car_count'] = car_count
+            stream['car_count'] = max(detection_history) if detection_history else 0
             stream['last_update'] = time.time()
 
             # For debugging: Save frame with detections every 10 seconds

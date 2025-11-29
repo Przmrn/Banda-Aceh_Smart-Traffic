@@ -75,7 +75,7 @@
                                                     <h6 class="text-dark text-sm font-weight-bold mb-0">Ulee Lheu</h6>
                                                     <div class="d-flex justify-content-between align-items-center mt-2">
                                                         <span>Kendaraan Terdeteksi:</span>
-                                                        <span class="badge bg-gradient-primary" id="car-count-1">0</span>
+                                                        <span class="badge bg-gradient-primary" id="car-count-1-stats">0</span>
                                                     </div>
                                                     <div class="progress mt-2">
                                                         <div id="density-meter-1" class="progress-bar bg-gradient-primary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -90,7 +90,7 @@
                                                     <h6 class="text-dark text-sm font-weight-bold mb-0">Simpang Dharma</h6>
                                                     <div class="d-flex justify-content-between align-items-center mt-2">
                                                         <span>Kendaraan Terdeteksi:</span>
-                                                        <span class="badge bg-gradient-success" id="car-count-2">0</span>
+                                                        <span class="badge bg-gradient-success" id="car-count-2-stats">0</span>
                                                     </div>
                                                     <div class="progress mt-2">
                                                         <div id="density-meter-2" class="progress-bar bg-gradient-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -252,46 +252,89 @@
 
                 // Update UI with new data
                 function updateUI(data) {
+                    console.log('updateUI FULL DATA:', JSON.stringify(data, null, 2));
+
+                    // CRITICAL FIX: Unwrap the 'statistics' wrapper if it exists
+                    const actualData = data.statistics || data;
+
+                    const totalVehicles = actualData.total_vehicles || actualData.totalVehicles || 0;
+                    const streams = actualData.streams || [];
+
+                    console.log('Extracted - totalVehicles:', totalVehicles, 'streams:', streams);
+
                     // Update total vehicles
-                    if (data.total_vehicles !== undefined) {
-                        document.getElementById('total-vehicles').textContent = data.total_vehicles;
+                    const totalElement = document.getElementById('total-vehicles');
+                    if (totalElement) {
+                        totalElement.textContent = totalVehicles;
+                        console.log('Updated total-vehicles to:', totalVehicles);
                     }
 
                     // Update individual streams
-                    if (data.streams && Array.isArray(data.streams)) {
-                        data.streams.forEach(streamData => {
-                            const stream = streams.find(s => s.id === streamData.id);
-                            if (stream) {
-                                // Update car count
-                                const countElement = document.getElementById(`car-count-${stream.id.split('-').pop()}`);
+                    if (Array.isArray(streams) && streams.length > 0) {
+                        console.log('Processing', streams.length, 'streams');
+
+                        streams.forEach((streamData, index) => {
+                            console.log(`Stream ${index}:`, JSON.stringify(streamData));
+
+                            let elementNumber = null;
+                            if (streamData.id === 'stream-1') {
+                                elementNumber = '1';
+                            } else if (streamData.id === 'stream-2') {
+                                elementNumber = '2';
+                            }
+
+                            console.log(`Stream ID: ${streamData.id} -> Element: ${elementNumber}`);
+
+                            if (elementNumber) {
+                                const carCount = streamData.car_count || streamData.carCount || 0;
+                                console.log(`Car count for stream ${elementNumber}:`, carCount);
+
+                                // Update car count badge (shows "X kendaraan")
+                                const countElement = document.getElementById(`car-count-${elementNumber}`);
                                 if (countElement) {
-                                    countElement.textContent = streamData.car_count || 0;
+                                    countElement.textContent = `${carCount} kendaraan`;
+                                    console.log(`✓ Updated car-count-${elementNumber} to "${carCount} kendaraan"`);
+                                } else {
+                                    console.error(`✗ Element car-count-${elementNumber} NOT FOUND`);
+                                }
+
+                                // Update statistics count
+                                const statsElement = document.getElementById(`car-count-${elementNumber}-stats`);
+                                if (statsElement) {
+                                    statsElement.textContent = carCount;
+                                    console.log(`✓ Updated car-count-${elementNumber}-stats to ${carCount}`);
+                                } else {
+                                    console.error(`✗ Element car-count-${elementNumber}-stats NOT FOUND`);
                                 }
 
                                 // Update progress bar
-                                const progressElement = document.getElementById(`density-meter-${stream.id.split('-').pop()}`);
+                                const progressElement = document.getElementById(`density-meter-${elementNumber}`);
                                 if (progressElement) {
-                                    const count = parseInt(streamData.car_count) || 0;
-                                    const percentage = Math.min(count * 5, 100);
+                                    const percentage = Math.min(carCount * 5, 100);
                                     progressElement.style.width = `${percentage}%`;
                                     progressElement.setAttribute('aria-valuenow', percentage);
 
-                                    // Update progress bar color based on traffic density
-                                    if (count > 15) {
+                                    if (carCount > 15) {
                                         progressElement.className = 'progress-bar bg-gradient-danger';
-                                    } else if (count > 8) {
+                                    } else if (carCount > 8) {
                                         progressElement.className = 'progress-bar bg-gradient-warning';
                                     } else {
                                         progressElement.className = 'progress-bar bg-gradient-success';
                                     }
+                                    console.log(`✓ Updated progress bar ${elementNumber} to ${percentage}%`);
                                 }
                             }
                         });
+                    } else {
+                        console.error('❌ No streams array found. Data:', actualData);
                     }
 
                     // Update last update time
                     const now = new Date();
-                    document.getElementById('last-update').textContent = now.toLocaleTimeString();
+                    const lastUpdateElement = document.getElementById('last-update');
+                    if (lastUpdateElement) {
+                        lastUpdateElement.textContent = now.toLocaleTimeString();
+                    }
                 }
 
                 // Update connection status

@@ -9,7 +9,7 @@ import subprocess
 app = Flask(__name__)
 
 # --- PENGATURAN KONFIGURASI ---
-MODEL_PATH = 'yolov8n.onnx'
+MODEL_PATH = 'yolov8m.onnx'
 SCORE_THRESHOLD = 0.5
 IOU_THRESHOLD = 0.5
 FRAMES_TO_SKIP = 5 # Analisis 1 dari setiap 10 frame
