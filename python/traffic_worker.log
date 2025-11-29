@@ -1,0 +1,489 @@
+2025-11-24 15:03:50,372 - INFO - Starting traffic monitoring worker...
+2025-11-24 15:03:50,433 - INFO - Model loaded: yolov8n.onnx
+2025-11-24 15:03:50,434 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:04:02,988 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:04:02,988 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:04:03,770 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:04:04,771 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:04:10,657 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:04:10,658 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:04:11,238 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:04:12,238 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:04:16,216 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:04:16,217 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:04:16,776 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:04:17,777 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:04:23,564 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:04:23,564 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:04:24,115 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:04:25,116 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:04:28,919 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:04:28,919 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:04:29,507 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:04:30,508 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:04:33,325 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:04:33,325 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:04:33,952 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:04:34,953 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:04:41,495 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:04:41,496 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:04:42,114 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:04:43,114 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:04:46,560 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:04:46,562 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:04:47,160 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:04:48,161 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:04:52,898 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:04:52,899 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:04:53,551 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:04:54,552 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:05:00,135 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:05:00,136 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:05:00,830 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:05:01,831 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:05:05,268 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:05:05,268 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:05:05,964 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:05:06,965 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:05:10,674 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:05:10,675 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:05:11,288 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:05:12,289 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:05:15,716 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:05:15,717 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:05:16,307 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:05:17,308 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:05:21,503 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:05:21,504 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:05:22,081 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:05:23,082 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:05:26,599 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:05:26,600 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:05:27,190 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:05:28,191 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:05:31,683 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:05:31,683 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:05:32,219 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:05:33,220 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:05:43,247 - ERROR - Failed to open stream: Simpang Lima
+2025-11-24 15:05:44,247 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:05:44,248 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:05:45,249 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:05:45,251 - ERROR - Failed to open stream: Simpang Lima
+2025-11-24 15:05:46,251 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:05:46,253 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:05:50,249 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:05:53,299 - ERROR - Failed to open stream: Simpang Lima
+2025-11-24 15:05:54,300 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:05:54,301 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:05:55,302 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:05:55,308 - ERROR - Failed to open stream: Simpang Lima
+2025-11-24 15:05:56,309 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:05:56,311 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:06:00,303 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:06:03,896 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:06:03,896 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:06:04,573 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:06:05,574 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:06:09,339 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:06:09,340 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:06:09,975 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:06:10,976 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:06:21,732 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:06:21,732 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:06:22,316 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:06:23,316 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:06:26,508 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:06:26,509 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:06:27,133 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:06:28,133 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:06:32,122 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:06:32,122 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:06:32,723 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:06:33,724 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:06:46,494 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:06:46,494 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:06:47,083 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:06:48,083 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:06:58,234 - ERROR - Failed to open stream: Simpang Lima
+2025-11-24 15:06:59,235 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:06:59,236 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:07:00,237 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:07:00,242 - ERROR - Failed to open stream: Simpang Lima
+2025-11-24 15:07:01,243 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:07:01,245 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:07:05,237 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:07:08,345 - ERROR - Failed to open stream: Simpang Lima
+2025-11-24 15:07:09,346 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:07:09,348 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:07:10,349 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:07:10,351 - ERROR - Failed to open stream: Simpang Lima
+2025-11-24 15:07:11,352 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:07:11,354 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:07:15,349 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:07:19,743 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:07:19,743 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:07:20,414 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:07:21,415 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:07:25,127 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:07:25,127 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:07:25,720 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:07:26,720 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:07:30,837 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:07:30,838 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:07:31,438 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:07:32,439 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:07:36,249 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:07:36,250 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:07:36,820 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:07:37,821 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:07:41,105 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:07:41,105 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:07:41,681 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:07:42,682 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:07:45,894 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:07:45,895 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:07:46,483 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:07:47,484 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:07:51,056 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:07:51,057 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:07:51,650 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:07:52,651 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:08:02,678 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:08:03,679 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:08:03,680 - ERROR - Failed to open stream: Simpang Lima
+2025-11-24 15:08:04,680 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:08:04,681 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:08:08,679 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:08:15,719 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:08:15,719 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:08:15,957 - INFO - Shutting down gracefully...
+2025-11-24 15:08:19,876 - INFO - Starting traffic monitoring worker...
+2025-11-24 15:08:19,943 - INFO - Model loaded: yolov8n.onnx
+2025-11-24 15:08:19,943 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:08:24,188 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:08:24,188 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:08:24,844 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:08:25,845 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:08:29,264 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:08:29,264 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:08:29,798 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:08:30,799 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:08:35,153 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:08:35,154 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:08:35,857 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:08:36,857 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:08:40,809 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:08:40,810 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:08:41,419 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:08:42,420 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:08:46,177 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:08:46,178 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:08:46,814 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:08:47,815 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:08:52,609 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:08:52,610 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:08:53,266 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:08:54,267 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:09:01,865 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:09:01,866 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:09:02,523 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:09:03,524 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:09:06,994 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:09:06,994 - INFO - Simpang Emat - Detected 0 vehicles
+2025-11-24 15:09:07,586 - INFO - Update sent successfully for Simpang Emat
+2025-11-24 15:09:08,587 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:09:22,425 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-24 15:09:22,426 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-24 15:09:23,054 - INFO - Update sent successfully for Simpang Lima
+2025-11-24 15:09:24,055 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:09:24,063 - ERROR - Failed to open stream: Simpang Emat
+2025-11-24 15:09:25,064 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-24 15:09:25,066 - ERROR - Failed to open stream: Simpang Lima
+2025-11-24 15:09:26,067 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-24 15:09:32,471 - INFO - Shutting down gracefully...
+2025-11-28 20:00:30,632 - INFO - Starting traffic monitoring worker...
+2025-11-28 20:00:30,749 - INFO - Model loaded: yolov8n.onnx
+2025-11-28 20:00:30,749 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:00:36,342 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:00:36,343 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:00:38,373 - ERROR - Failed to send update for Simpang Lima: HTTPConnectionPool(host='127.0.0.1', port=8000): Max retries exceeded with url: /api/traffic-update (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000167AD171FD0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2025-11-28 20:00:39,374 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:00:39,942 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:00:40,943 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:00:49,295 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:00:49,304 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:00:50,835 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:00:51,836 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:00:52,672 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:00:53,673 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:00:59,700 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:00:59,702 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:01:00,619 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:01:01,620 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:01:02,061 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:01:03,062 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:01:08,205 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:01:08,206 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:01:09,098 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:01:10,099 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:01:10,708 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:01:11,709 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:01:15,723 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:01:15,723 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:01:16,470 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:01:17,471 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:01:18,039 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:01:19,039 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:01:22,885 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:01:22,885 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:01:23,452 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:01:24,453 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:01:24,656 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:01:25,657 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:01:28,249 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:01:28,250 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:01:28,845 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:01:29,846 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:01:30,118 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:01:31,119 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:01:36,829 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:01:36,830 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:01:37,459 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:01:38,459 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:01:39,349 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:01:40,350 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:01:46,181 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:01:46,182 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:01:46,783 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:01:47,784 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:01:48,578 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:01:49,579 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:01:55,201 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:01:55,202 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:01:55,888 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:01:56,889 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:01:57,897 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:01:58,898 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:02:06,707 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:02:06,708 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:02:07,307 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:02:08,308 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:02:09,699 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:02:10,700 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:02:17,459 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:02:17,460 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:02:18,095 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:02:19,096 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:02:19,624 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:02:20,624 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:02:33,361 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:02:33,362 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:02:33,946 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:02:34,947 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:02:37,312 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:02:38,313 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:02:50,148 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:02:50,148 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:02:50,771 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:02:51,772 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:02:53,667 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:02:54,668 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:03:03,128 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:03:03,129 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:03:03,784 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:03:04,785 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:03:06,442 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:03:07,443 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:03:18,781 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:03:18,782 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:03:19,424 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:03:20,424 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:03:21,350 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:03:22,351 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:03:34,166 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:03:34,166 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:03:34,761 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:03:35,762 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:03:37,176 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:03:38,177 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:03:48,253 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:03:48,254 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:03:48,871 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:03:49,872 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:03:51,742 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:03:52,742 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:04:10,079 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:04:10,080 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:04:10,833 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:04:11,834 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:04:15,201 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:04:16,202 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:04:46,348 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:04:46,349 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:04:46,907 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:04:47,908 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:04:49,378 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:04:50,379 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:05:23,561 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:05:23,561 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:05:24,195 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:05:25,196 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:05:30,549 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:05:31,549 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:06:01,604 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:06:01,604 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:06:02,177 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:06:03,177 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:06:05,353 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:06:06,354 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:06:27,989 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:06:27,991 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:06:28,705 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:06:29,706 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:06:31,650 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:06:32,650 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:06:51,543 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:06:51,544 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:06:52,159 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:06:53,159 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:06:55,088 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:06:56,089 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:07:16,111 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:07:16,111 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:07:16,859 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:07:17,860 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:07:19,003 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:07:20,004 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:07:28,625 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:07:28,625 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:07:29,428 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:07:30,429 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:07:31,907 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:07:32,908 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:07:46,788 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:07:46,789 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:07:47,346 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:07:48,347 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:07:50,036 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:07:51,036 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:08:05,869 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:08:05,869 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:08:06,433 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:08:07,434 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:08:09,774 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:08:10,775 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:08:24,060 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:08:24,061 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:08:24,658 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:08:25,659 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:08:26,978 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:08:27,979 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:08:43,055 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:08:43,055 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:08:43,801 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:08:44,802 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:08:45,670 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:08:46,671 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:09:05,268 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:09:05,268 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:09:05,854 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:09:06,855 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:09:08,300 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:09:09,301 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:09:28,153 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:09:28,153 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:09:28,984 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:09:29,985 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:09:32,222 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:09:33,223 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:09:56,056 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:09:56,057 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:09:56,738 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:09:57,739 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:10:00,243 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:10:01,244 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:10:11,347 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:10:11,348 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:10:11,930 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:10:12,931 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:10:14,470 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:10:15,471 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:10:30,078 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:10:30,078 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:10:30,648 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:10:31,649 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:10:33,934 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:10:34,934 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:11:02,599 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:11:02,600 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:11:03,285 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:11:04,285 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:11:09,079 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:11:10,080 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:11:27,305 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:11:27,306 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:11:27,917 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:11:28,918 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:11:31,573 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:11:32,573 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:11:45,567 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:11:45,567 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:11:46,159 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:11:47,160 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:11:48,685 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:11:49,685 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:11:59,579 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:11:59,580 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:12:00,149 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:12:01,150 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:12:05,848 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:12:06,848 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:12:17,009 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:12:17,010 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:12:17,678 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:12:18,678 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:12:19,386 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:12:20,387 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:12:31,869 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:12:31,870 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:12:32,444 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:12:33,445 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:12:34,382 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:12:35,383 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:12:46,974 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:12:46,974 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:12:47,555 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:12:48,556 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:12:51,501 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:12:52,502 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:13:15,263 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:13:15,264 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:13:15,833 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:13:16,833 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:13:18,512 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:13:19,512 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:13:37,323 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:13:37,323 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:13:38,056 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:13:39,056 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:13:40,300 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:13:41,301 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:13:58,985 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:13:58,986 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:13:59,579 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:14:00,581 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:14:02,115 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:14:03,115 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:14:22,582 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:14:22,583 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:14:23,159 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:14:24,160 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:14:26,620 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:14:27,621 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8
+2025-11-28 20:14:44,593 - ERROR - Error during detection: index 1 is out of bounds for axis 0 with size 1
+2025-11-28 20:14:44,593 - INFO - Simpang Lima - Detected 0 vehicles
+2025-11-28 20:14:45,238 - INFO - Update sent successfully for Simpang Lima
+2025-11-28 20:14:46,239 - INFO - Connecting to Simpang Emat at https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8
+2025-11-28 20:14:48,143 - ERROR - Failed to open stream: Simpang Emat
+2025-11-28 20:14:49,144 - INFO - Connecting to Simpang Lima at https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8

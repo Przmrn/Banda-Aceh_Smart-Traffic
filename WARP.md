@@ -36,14 +36,19 @@ pip install -r requirements.txt
 ```
 
 ### Running the Application
-You need to run three processes simultaneously:
+You need to run *five* processes simultaneously:
 
 1.  **Laravel Server**:
     ```bash
     php artisan serve
     ```
 
-2.  **Python Analysis Service**:
+2.  **Reverb Server** (WebSocket):
+    ```bash
+    php artisan reverb:start
+    ```
+
+3.  **Python Analysis Service** (File Uploads):
     ```bash
     cd python
     # Ensure venv is activated
@@ -51,7 +56,15 @@ You need to run three processes simultaneously:
     ```
     *Note: The service runs on `http://127.0.0.1:5000` by default.*
 
-3.  **Frontend Watcher** (Optional, for UI dev):
+4.  **Real-time Worker** (For Dashboard CCTV Analysis):
+    ```bash
+    cd python
+    # Ensure venv is activated
+    python realtime_worker.py
+    ```
+    *Note: This script connects to CCTV streams and pushes data to the Laravel API (`/api/traffic-update`).*
+
+5.  **Frontend Watcher** (Optional, for UI dev):
     ```bash
     npm run watch
     ```

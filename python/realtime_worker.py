@@ -81,51 +81,60 @@ def run_detection_and_get_stats(output_from_model, original_width, original_heig
     boxes, scores, class_ids = [], [], []
     x_factor, y_factor = original_width / model_width, original_height / model_height
 
-    # Define ROI (Region of Interest) - adjust these values based on your camera view
-    roi_y_start = int(original_height * 0.4)  # Start ROI at 40% from top
-    roi_y_end = original_height  # End at bottom of frame
-    roi_x_start = int(original_width * 0.1)  # 10% from left
-    roi_x_end = int(original_width * 0.9)   # 90% from left
+    # TEMPORARY: Disable ROI to see ALL detections
+    roi_y_start = 0  # CHANGED: was int(original_height * 0.4)
+    roi_y_end = original_height
+    roi_x_start = 0  # CHANGED: was int(original_width * 0.1)
+    roi_x_end = original_width
+
+    total_detections = 0
+    vehicle_detections = 0
+    roi_filtered = 0
 
     for row in outputs:
         class_scores = row[4:]
         max_score, class_id = np.max(class_scores), np.argmax(class_scores)
 
-        # Only consider vehicle classes
-        if max_score > SCORE_THRESHOLD and CLASS_NAMES[class_id] in ['car', 'bus', 'truck', 'motorbike']:
-            scores.append(max_score)
-            class_ids.append(class_id)
-            cx, cy, w, h = row[:4]
-            x, y = int((cx - w/2) * x_factor), int((cy - h/2) * y_factor)
-            w, h = int(w * x_factor), int(h * y_factor)
+        # Check ALL objects first
+        if max_score > SCORE_THRESHOLD:
+            total_detections += 1
 
-            # Check if the center of the box is within ROI
-            box_center_x = x + w//2
-            box_center_y = y + h//2
-            if (roi_x_start <= box_center_x <= roi_x_end and
-                roi_y_start <= box_center_y <= roi_y_end):
-                boxes.append([x, y, w, h])
+            # Only consider vehicle classes
+            if CLASS_NAMES[class_id] in ['car', 'bus', 'truck', 'motorbike']:
+                vehicle_detections += 1
+                scores.append(max_score)
+                class_ids.append(class_id)
+                cx, cy, w, h = row[:4]
+                x, y = int((cx - w/2) * x_factor), int((cy - h/2) * y_factor)
+                w, h = int(w * x_factor), int(h * y_factor)
 
-    # Apply NMS (Non-Maximum Suppression) to remove overlapping boxes
+                # Check if the center of the box is within ROI
+                box_center_x = x + w//2
+                box_center_y = y + h//2
+                if (roi_x_start <= box_center_x <= roi_x_end and
+                    roi_y_start <= box_center_y <= roi_y_end):
+                    boxes.append([x, y, w, h])
+                else:
+                    roi_filtered += 1
+
+    # Apply NMS
     indices = cv2.dnn.NMSBoxes(boxes, scores, SCORE_THRESHOLD, IOU_THRESHOLD) if boxes else []
 
-    # If you want to visualize the detections
+    # DEBUG PRINT
+    print(f"DEBUG: Total detections={total_detections}, Vehicles={vehicle_detections}, "
+          f"ROI filtered={roi_filtered}, After NMS={len(indices)}")
+
+    # Visualization code (same as before)
     if frame is not None:
-        # Draw ROI
         cv2.rectangle(frame, (roi_x_start, roi_y_start), (roi_x_end, roi_y_end), (0, 0, 255), 2)
-        cv2.putText(frame, "DETECTION ZONE", (roi_x_start + 10, roi_y_start + 25),
-                   cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 
         if len(indices) > 0:
             for i in indices.flatten():
                 x, y, w, h = boxes[i]
-                # Draw bounding box
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                # Draw label background
-                label = f"{CLASS_NAMES[class_ids[i]].upper()}: {scores[i]:.1f}"
+                label = f"{CLASS_NAMES[class_ids[i]].upper()}: {scores[i]:.2f}"
                 (label_w, label_h), _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
                 cv2.rectangle(frame, (x, y - 20), (x + label_w, y), (0, 255, 0), -1)
-                # Draw label text
                 cv2.putText(frame, label, (x, y - 5),
                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
 
@@ -136,7 +145,14 @@ def process_stream(stream, session, input_name):
     cap = cv2.VideoCapture(stream['url'])
 
     if not cap.isOpened():
-        print(f"Error: Could not open video stream {stream['url']}")
+        print(f"\n{'='*50}")
+        print(f"ERROR: Could not open video stream for {stream['name']}")
+        print(f"URL: {stream['url']}")
+        print("Possible causes:")
+        print("1. The session token in the URL has expired.")
+        print("2. The stream is offline.")
+        print("3. Network connectivity issues.")
+        print(f"{'='*50}\n")
         return
 
     frame_count = 0
@@ -225,10 +241,13 @@ def send_updates(streams):
 
             # Send to Laravel
             data = {
-                'total_vehicles': total_vehicles,
+                'total_vehicles': int(total_vehicles),
                 'streams': streams_data,
                 'timestamp': time.time()
             }
+
+            print(f"Sending update to Laravel: Total Vehicles={total_vehicles}")
+            # print(f"Payload: {data}") # Uncomment for verbose debug
 
             try:
                 response = requests.post(LARAVEL_WEBHOOK_URL, json=data, timeout=5)

@@ -21,19 +21,29 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/traffic-update', function (Request $request) {
-    $stats = $request->validate([
-        'car_count' => 'required|integer',
+    // Validate the incoming data structure from realtime_worker.py
+    $data = $request->validate([
+        'total_vehicles' => 'required|integer',
+        'streams' => 'required|array',
+        'streams.*.id' => 'required|string',
+        'streams.*.car_count' => 'required|integer',
+        'timestamp' => 'sometimes'
     ]);
 
-    \Log::info('Received traffic data:', $stats);
+    \Log::info('Received traffic data:', $data);
 
+    // Optional: Log to database (iterating through streams if needed)
+    // For now, we'll skip detailed DB logging to focus on real-time display
+    // or just log the total.
+    /*
     TrafficLog::create([
-        'vehicle_count' => $stats['car_count'],
-        'location_name' => 'simpang_pasteur'
+        'vehicle_count' => $data['total_vehicles'],
+        'location_name' => 'aggregate_streams'
     ]);
+    */
 
     \Log::info('About to broadcast...');
-    broadcast(new TrafficDataUpdated($stats));
+    broadcast(new TrafficDataUpdated($data));
     \Log::info('Broadcast called.');
 
     return response()->json(['status' => 'success']);
