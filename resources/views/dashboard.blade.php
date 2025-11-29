@@ -143,15 +143,15 @@
                     {
                         id: 'cctv-player-1',
                         url: 'https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8?session=YfkSxaizRZbFzmGAk4arpy',
-                        location: 'Simpang Lima',
+                        location: 'Ulee Lheu 1',
                         carCount: 0,
                         element: null,
                         hls: null
                     },
                     {
                         id: 'cctv-player-2',
-                        url: 'https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8?session=DouojpAuTXLSyHxrAhZQyz',
-                        location: 'Simpang Emat',
+                        url: 'https://cctv-stream.bandaacehkota.info/memfs/7eec00d1-9025-4c1c-9007-7a742cac3dd8_output_0.m3u8?session=RpRPECagkXWFiSPtU2WPWz',
+                        location: 'Ulee Lheu 2',
                         carCount: 0,
                         element: null,
                         hls: null

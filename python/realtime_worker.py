@@ -10,15 +10,15 @@ import math
 STREAMS = [
     {
         'id': 'stream-1',
-        'name': 'Simpang Lima',
+        'name': 'Ulee Lheu 1',
         'url': 'https://cctv-stream.bandaacehkota.info/memfs/097d5dcf-eda2-4b29-9661-fcc035d7770f_output_0.m3u8?session=YfkSxaizRZbFzmGAk4arpy',
         'car_count': 0,
         'last_update': time.time()
     },
     {
         'id': 'stream-2',
-        'name': 'Simpang Emat',
-        'url': 'https://cctv-stream.bandaacehkota.info/memfs/f9444904-ad31-4401-9643-aee6e33b85c7_output_0.m3u8?session=DouojpAuTXLSyHxrAhZQyz',
+        'name': 'Ulee Lheu 2',
+        'url': 'https://cctv-stream.bandaacehkota.info/memfs/7eec00d1-9025-4c1c-9007-7a742cac3dd8_output_0.m3u8?session=RpRPECagkXWFiSPtU2WPWz',
         'car_count': 0,
         'last_update': time.time()
     }
@@ -30,7 +30,7 @@ UPDATE_INTERVAL = 5  # seconds between updates
 # Pengaturan Model
 MODEL_PATH = 'yolov8m.onnx'
 SCORE_THRESHOLD = 0.15  # Lowered for night-time detection
-IOU_THRESHOLD = 0.4     # More lenient overlap for night-time
+IOU_THRESHOLD = 0.6     # More lenient overlap for night-time
 MODEL_HEIGHT = 640
 MODEL_WIDTH = 640
 CLASS_NAMES = ['person', 'bicycle', 'car', 'motorbike', 'aeroplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'sofa', 'pottedplant', 'bed', 'diningtable', 'toilet', 'tvmonitor', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush']
@@ -38,7 +38,7 @@ CLASS_NAMES = ['person', 'bicycle', 'car', 'motorbike', 'aeroplane', 'bus', 'tra
 # Pengaturan Enhancement
 APPLY_CLAHE = True  # Set False untuk disable CLAHE
 APPLY_GAMMA = True  # Set False untuk disable gamma correction
-GAMMA_VALUE = 1.2   # > 1.0 brighten, < 1.0 darken (range: 0.5 - 2.0 biasanya)
+SAVE_DEBUG_IMAGES = False  # Set True to enable debug image saving
 
 # --- FUNGSI ENHANCEMENT ---
 def apply_clahe(frame):
@@ -56,12 +56,12 @@ def apply_gamma_correction(frame, gamma=1.2):
     table = np.array([((i / 255.0) ** inv_gamma) * 255 for i in range(256)]).astype("uint8")
     return cv2.LUT(frame, table)
 
-def enhance_frame(frame):
+def enhance_frame(frame, gamma_value=1.2):
     """Pipeline enhancement: gamma dulu, baru CLAHE"""
     enhanced = frame.copy()
 
     if APPLY_GAMMA:
-        enhanced = apply_gamma_correction(enhanced, GAMMA_VALUE)
+        enhanced = apply_gamma_correction(enhanced, gamma_value)
 
     if APPLY_CLAHE:
         enhanced = apply_clahe(enhanced)
@@ -76,7 +76,7 @@ def preprocess_frame(frame, target_width, target_height):
     img = np.transpose(img, (2, 0, 1))
     return np.expand_dims(img, axis=0)
 
-def run_detection_and_get_stats(output_from_model, original_width, original_height, model_width, model_height, frame=None):
+def run_detection_and_get_stats(output_from_model, original_width, original_height, model_width, model_height, stream_name="Unknown", frame=None):
     outputs = np.transpose(np.squeeze(output_from_model[0]))
     boxes, scores, class_ids = [], [], []
     x_factor, y_factor = original_width / model_width, original_height / model_height
@@ -120,8 +120,8 @@ def run_detection_and_get_stats(output_from_model, original_width, original_heig
     # Apply NMS
     indices = cv2.dnn.NMSBoxes(boxes, scores, SCORE_THRESHOLD, IOU_THRESHOLD) if boxes else []
 
-    # DEBUG PRINT
-    print(f"DEBUG: Total detections={total_detections}, Vehicles={vehicle_detections}, "
+    # DEBUG PRINT with stream name
+    print(f"[{stream_name}] DEBUG: Total detections={total_detections}, Vehicles={vehicle_detections}, "
           f"ROI filtered={roi_filtered}, After NMS={len(indices)}")
 
     # Visualization code (same as before)
@@ -142,6 +142,17 @@ def run_detection_and_get_stats(output_from_model, original_width, original_heig
 
 def process_stream(stream, session, input_name):
     print(f"Processing stream: {stream['name']}")
+
+    # Set gamma value per stream
+    if stream['id'] == 'stream-1':
+        gamma_value = 1.2
+    elif stream['id'] == 'stream-2':
+        gamma_value = 1.5  # Brighter for darker camera
+    else:
+        gamma_value = 1.2
+
+    print(f"  → Using GAMMA={gamma_value} for {stream['name']}")
+
     cap = cv2.VideoCapture(stream['url'])
 
     if not cap.isOpened():
@@ -156,8 +167,8 @@ def process_stream(stream, session, input_name):
         return
 
     frame_count = 0
-    detection_history = []  # NEW LINE - track recent detections    
-    detection_interval = 1  # Process every 3rd frame
+    detection_history = []  # Track recent detections
+    detection_interval = 1  # Process every frame
     last_debug_save = time.time()
 
     while True:
@@ -177,8 +188,8 @@ def process_stream(stream, session, input_name):
             # Create a copy for display
             display_frame = frame.copy()
 
-            # Enhance frame
-            enhanced_frame = enhance_frame(frame)
+            # Enhance frame with stream-specific gamma
+            enhanced_frame = enhance_frame(frame, gamma_value)
 
             # Resize and preprocess for model
             input_tensor = preprocess_frame(enhanced_frame, MODEL_WIDTH, MODEL_HEIGHT)
@@ -191,35 +202,36 @@ def process_stream(stream, session, input_name):
             # Get detections with visualization
             car_count = run_detection_and_get_stats(
                 outputs, frame.shape[1], frame.shape[0],
-                MODEL_WIDTH, MODEL_HEIGHT, display_frame
+                MODEL_WIDTH, MODEL_HEIGHT, stream['name'], display_frame
             )
 
-            # Add FPS and vehicle count to display
-            fps_text = f"FPS: {1.0 / (inference_time + 0.0001):.1f}"
-            count_text = f"Vehicles: {car_count}"
             # Add to detection history
             detection_history.append(car_count)
             if len(detection_history) > 20:  # Keep last 20 frames
                 detection_history.pop(0)
-            # cv2.putText(display_frame, fps_text, (10, 30),
-            #            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-            # cv2.putText(display_frame, count_text, (10, 60),
-            #            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+
+            # Use maximum from recent history
+            max_count = max(detection_history) if detection_history else 0
 
             # Update stream data
-            stream['car_count'] = max(detection_history) if detection_history else 0
+            stream['car_count'] = max_count
             stream['last_update'] = time.time()
 
+            # ADDED: Debug print
+            if frame_count % 30 == 0:  # Print every 30 frames to avoid spam
+                print(f"[{stream['name']}] Current={car_count}, Max={max_count}, History={detection_history[-5:]}")
+
             # For debugging: Save frame with detections every 10 seconds
-            current_time = time.time()
-            if current_time - last_debug_save > 10:  # Save every 10 seconds
-                debug_filename = f"debug_{stream['id']}_{int(current_time)}.jpg"
-                cv2.imwrite(debug_filename, display_frame)
-                print(f"Saved debug image: {debug_filename}")
-                last_debug_save = current_time
+            if SAVE_DEBUG_IMAGES:
+                current_time = time.time()
+                if current_time - last_debug_save > 10:
+                    debug_filename = f"debug_{stream['id']}_{int(current_time)}.jpg"
+                    cv2.imwrite(debug_filename, display_frame)
+                    print(f"Saved debug image: {debug_filename}")
+                    last_debug_save = current_time
 
         except Exception as e:
-            print(f"Error processing frame: {str(e)}")
+            print(f"Error processing frame from {stream['name']}: {str(e)}")
             import traceback
             traceback.print_exc()
             continue
@@ -269,11 +281,9 @@ def send_updates(streams):
             print(f"Error in update thread: {e}")
             time.sleep(5)  # Wait before retrying
 
-# ... (previous imports and functions remain the same until start_worker)
-
 def start_worker():
     print(f"Memuat model {MODEL_PATH}...")
-    print(f"Enhancement: CLAHE={APPLY_CLAHE}, Gamma={APPLY_GAMMA} (value={GAMMA_VALUE})")
+    print(f"Enhancement: CLAHE={APPLY_CLAHE}, Gamma={APPLY_GAMMA}")
 
     try:
         providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
