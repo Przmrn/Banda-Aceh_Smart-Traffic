@@ -4,29 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\AnalysisJob;
 
 class StaticAnalysisController extends Controller
 {
     public function index()
     {
-        return view('static-analysis');
+        // We must pass null values so the View doesn't crash on initial load
+        return view('static-analysis', [
+            'video_path' => null,
+            'filename' => null
+        ]);
     }
 
     public function upload(Request $request)
     {
         $request->validate([
-            'video_file' => 'required|mimetypes:video/mp4,video/avi,video/mpeg|max:50000', // Max 50MB
+            'video_file' => 'required|mimes:mp4,avi,mov|max:50000',
         ]);
 
-        // Simpan video ke folder 'public/videos'
-        if ($request->file('video_file')) {
-            $fileName = time() . '_' . $request->file('video_file')->getClientOriginalName();
-            $path = $request->file('video_file')->storeAs('videos', $fileName, 'public');
+        if ($request->hasFile('video_file')) {
+            $file = $request->file('video_file');
 
-            // Kembalikan view dengan path video
-            return view('static-analysis', ['video_path' => '/storage/' . $path, 'filename' => $fileName]);
+            // Generate a unique filename
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $filename);
+
+            // --- NEW: Create a Job in Database ---
+            AnalysisJob::create([
+                'filename' => $filename,
+                'original_name' => $file->getClientOriginalName(),
+                'status' => 'pending' // Python will look for this
+            ]);
+
+            // Return view with the filename so the frontend knows what to listen for
+            return view('static-analysis', [
+                'video_path' => 'uploads/' . $filename,
+                'filename' => $filename
+            ]);
         }
 
-        return back()->with('error', 'Gagal upload video.');
+        return back()->with('error', 'Upload failed');
     }
 }

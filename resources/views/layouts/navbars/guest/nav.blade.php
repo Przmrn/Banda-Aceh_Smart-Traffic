@@ -1,51 +1,42 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 my-3 {{ (Request::is('static-sign-up') ? 'w-100 shadow-none  navbar-transparent mt-4' : 'blur blur-rounded shadow py-2 start-0 end-0 mx4') }}">
-  <div class="container-fluid {{ (Request::is('static-sign-up') ? 'container' : 'container-fluid') }}">
-    <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 {{ (Request::is('static-sign-up') ? 'text-white' : '') }}" href="{{ url('dashboard') }}">
-      Soft UI Dashboard Laravel
-    </a>
-    <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon mt-2">
-        <span class="navbar-toggler-bar bar1"></span>
-        <span class="navbar-toggler-bar bar2"></span>
-        <span class="navbar-toggler-bar bar3"></span>
-      </span>
-    </button>
-    <div class="collapse navbar-collapse" id="navigation">
-      <ul class="navbar-nav mx-auto">
-        @if (auth()->user())
-            <li class="nav-item">
-            <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="{{ url('dashboard') }}">
-                <i class="fa fa-chart-pie opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
-                Dashboard
-            </a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link me-2" href="{{ url('profile') }}">
-                <i class="fa fa-user opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
-                Profile
-            </a>
-            </li>
-        @endif
-        <li class="nav-item">
-          <a class="nav-link me-2" href="{{ auth()->user() ? url('static-sign-up') : url('register') }}">
-            <i class="fas fa-user-circle opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
-            Sign Up
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link me-2" href="{{ auth()->user() ? url('static-sign-in') : url('login') }}">
-            <i class="fas fa-key opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
-            Sign In
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav d-lg-block d-none">
-        <li class="nav-item">
-          <a href="https://www.creative-tim.com/product/soft-ui-dashboard-laravel" target="_blank" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-{{ (Request::is('static-sign-up') ? 'light' : 'dark') }}">Free download</a>
-        </li>
-      </ul>
+<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+    <div class="container-fluid py-1 px-3 border-bottom" style="border-color: #333 !important; padding-bottom: 15px !important;">
+
+        <nav aria-label="breadcrumb">
+            <h4 class="font-dot text-white mb-0" style="letter-spacing: 2px; font-family: 'DotGothic16', sans-serif;">
+                BA SMART <span style="color: #D71921;">TRAFFIC</span>
+            </h4>
+        </nav>
+
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+
+                <div class="btn-group me-4">
+                    <a href="{{ route('dashboard') }}" class="btn btn-nd {{ Request::is('dashboard') ? 'btn-nd-active' : '' }}">
+                        REAL-TIME
+                    </a>
+                    <a href="{{ route('static.index') }}" class="btn btn-nd {{ Request::is('static-analysis') ? 'btn-nd-active' : '' }}">
+                        STATIC ANALYSIS
+                    </a>
+                </div>
+
+                <div class="d-none d-md-block text-end">
+                    <small class="d-block text-muted font-dot" style="font-size: 0.6rem; font-family: 'DotGothic16', sans-serif;">SYSTEM TIME</small>
+                    <span class="text-white font-dot fs-5" style="font-family: 'DotGothic16', sans-serif;">{{ date('H:i') }}</span>
+                </div>
+
+            </div>
+
+            <ul class="navbar-nav  justify-content-end">
+                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                    <a href="javascript:" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                        <div class="sidenav-toggler-inner">
+                            <i class="sidenav-toggler-line bg-white"></i>
+                            <i class="sidenav-toggler-line bg-white"></i>
+                            <i class="sidenav-toggler-line bg-white"></i>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
-<!-- End Navbar -->
