@@ -4,11 +4,11 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TrafficDataUpdated implements ShouldBroadcast
+class TrafficDataUpdated implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -31,7 +31,16 @@ class TrafficDataUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('traffic-channel');
+        // Using a dynamic channel allows the frontend to listen only to the specific source it needs.
+        return new Channel('traffic.' . $this->sourceType . '.' . $this->sourceId);
+    }
+
+    /**
+     * The event's broadcast name.
+     */
+    public function broadcastAs()
+    {
+        return 'TrafficDataUpdated';
     }
 
     /**

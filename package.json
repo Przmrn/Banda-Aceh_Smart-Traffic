@@ -14,13 +14,14 @@
         "axios": "^0.21",
         "laravel-echo": "^2.2.6",
         "laravel-mix": "^6.0.6",
+        "laravel-vite-plugin": "^2.0.1",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "pusher-js": "^8.4.0",
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.43.4",
         "sass-loader": "^12.3.0",
-        "vite": "^6.4.1"
+        "vite": "^7.3.1"
     },
     "dependencies": {
         "chart.js": "^4.5.1"

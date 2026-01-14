@@ -4,31 +4,28 @@ import time
 import os
 import onnxruntime as ort
 import numpy as np
-import mysql.connector # NEW: Import MySQL Connector
+import mysql.connector
 
-# --- KONFIGURASI DATABASE ---
-# Ganti dengan user/pass database lokalmu
+# --- CONFIGURATION ---
 DB_CONFIG = {
     'host': '127.0.0.1',
     'user': 'root',
     'password': '',
-    'database': 'laravel' # Pastikan nama DB sesuai dengan .env Laravel
+    'database': 'laravel' # CHECK THIS MATCHES YOUR DB NAME
 }
 
-# --- KONFIGURASI PATH ---
-# Lokasi folder tempat Laravel menyimpan upload
-# NOTE: Pastikan path ini mengarah ke folder 'public/uploads' di project Laravelmu
+# IMPORTANT: Ensure this path ends with a slash '/'
 VIDEO_STORAGE_PATH = "D:/Laravel/smart-traffic/public/uploads/"
-
 LARAVEL_WEBHOOK_URL = "http://127.0.0.1:8000/api/traffic-update"
 
-# Load Model YOLO (ONNX)
+# Load Model
+print(" [INIT] Loading YOLO Model...")
 MODEL_PATH = "yolov8n.onnx"
 session = ort.InferenceSession(MODEL_PATH, providers=['CPUExecutionProvider'])
 input_name = session.get_inputs()[0].name
 MODEL_WIDTH, MODEL_HEIGHT = 640, 640
+print(" [INIT] Model Loaded.")
 
-# --- FUNGSI PREPROCESS & DETEKSI (TETAP SAMA) ---
 def preprocess_frame(frame, w, h):
     image = cv2.resize(frame, (w, h))
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -45,25 +42,22 @@ def run_detection_and_get_stats(results, frame_w, frame_h, model_w, model_h):
         prob = row[4:].max()
         if prob < 0.5: continue
         class_id = row[4:].argmax()
-        # Class: 2=car, 3=motorcycle, 5=bus, 7=truck
-        if class_id in [2, 3, 5, 7]:
+        if class_id in [2, 3, 5, 7]: # Car, Motorcycle, Bus, Truck
             car_count += 1
     return car_count
 
-# --- FUNGSI DATABASE ---
 def connect_db():
     return mysql.connector.connect(**DB_CONFIG)
 
-# --- MAIN WORKER LOOP ---
 def start_worker():
-    print(" [SYSTEM] STATIC WORKER STARTED. WAITING FOR UPLOADS...")
+    print(" [SYSTEM] DEBUG WORKER STARTED. WAITING FOR UPLOADS...")
 
     while True:
         try:
             conn = connect_db()
             cursor = conn.cursor(dictionary=True)
 
-            # 1. Cari job yang statusnya 'pending'
+            # 1. Check for Pending Jobs
             cursor.execute("SELECT * FROM analysis_jobs WHERE status = 'pending' LIMIT 1")
             job = cursor.fetchone()
 
@@ -71,71 +65,82 @@ def start_worker():
                 filename = job['filename']
                 job_id = job['id']
 
-                print(f" [JOB FOUND] Processing: {filename}")
+                print(f"\n [JOB DETECTED] ID: {job_id} | File: {filename}")
 
-                # 2. Update status jadi 'processing'
+                # Update Status
                 cursor.execute("UPDATE analysis_jobs SET status = 'processing' WHERE id = %s", (job_id,))
                 conn.commit()
 
-                # Cek apakah file ada
+                # Verify Path
                 full_path = os.path.join(VIDEO_STORAGE_PATH, filename)
+                print(f" [DEBUG] Looking for file at: {full_path}")
+
                 if not os.path.exists(full_path):
-                    print(f" [ERROR] File not found: {full_path}")
+                    print(f" [ERROR] File NOT found at path!")
                     cursor.execute("UPDATE analysis_jobs SET status = 'failed' WHERE id = %s", (job_id,))
                     conn.commit()
                     conn.close()
                     continue
 
-                # 3. Proses Video
+                print(f" [DEBUG] File found. Opening video capture...")
                 cap = cv2.VideoCapture(full_path)
 
+                if not cap.isOpened():
+                    print(" [ERROR] cv2.VideoCapture failed to open file.")
+                    cursor.execute("UPDATE analysis_jobs SET status = 'failed' WHERE id = %s", (job_id,))
+                    conn.commit()
+                    continue
+
+                print(" [DEBUG] Video opened successfully. Starting processing loop...")
+
+                frame_count = 0
                 while cap.isOpened():
                     ret, frame = cap.read()
                     if not ret:
+                        print(" [DEBUG] End of video stream reached.")
                         break
 
-                    # Inference ONNX
+                    frame_count += 1
+
+                    # Inference
                     input_data = preprocess_frame(frame, MODEL_WIDTH, MODEL_HEIGHT)
                     result = session.run(None, {input_name: input_data})
 
                     h, w = frame.shape[:2]
                     car_count = run_detection_and_get_stats(result, w, h, MODEL_WIDTH, MODEL_HEIGHT)
 
-                    # KIRIM KE LARAVEL (Updated Payload)
-                    # Penting: 'source_id' harus sama dengan filename agar Web Socket tahu video mana yang diupdate
+                    # Send Data
                     payload = {
                         'car_count': car_count,
-                        'mode': 'static',      # Identitas mode
-                        'source_id': filename  # Identitas file
+                        'mode': 'static',
+                        'source_id': filename
                     }
 
                     try:
-                        requests.post(LARAVEL_WEBHOOK_URL, json=payload, timeout=0.5)
-                        # print(f"Processing: {car_count} cars", end='\r') # Optional log
-                    except:
-                        pass
+                        response = requests.post(LARAVEL_WEBHOOK_URL, json=payload, timeout=2.0)
+                        # Print progress every 10 frames to avoid spamming, but show activity
+                        if frame_count % 5 == 0:
+                            print(f" -> Frame {frame_count}: {car_count} objects detected (Status: {response.status_code})")
+                    except Exception as e:
+                        print(f" [NET ERROR] Could not connect to Laravel: {e}")
 
-                    # Delay simulasi agar sinkron dengan video player di browser
-                    # Sesuaikan angka ini (0.04 ~ 25 FPS)
+                    # Speed Control
                     time.sleep(0.04)
 
                 cap.release()
-
-                # 4. Selesai -> Update status jadi 'completed'
                 cursor.execute("UPDATE analysis_jobs SET status = 'completed' WHERE id = %s", (job_id,))
                 conn.commit()
-                print(f"\n [JOB COMPLETE] Finished: {filename}")
+                print(f" [JOB COMPLETE] Finished processing {filename}")
 
             else:
-                # Tidak ada job, tunggu 2 detik sebelum cek lagi
-                # print(" [IDLE] Waiting...", end='\r')
+                # No jobs, silent wait
                 time.sleep(2)
 
             cursor.close()
             conn.close()
 
         except Exception as e:
-            print(f" [ERROR] Database Connection Failed: {e}")
+            print(f" [CRITICAL ERROR] {e}")
             time.sleep(5)
 
 if __name__ == "__main__":

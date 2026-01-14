@@ -282,52 +282,75 @@
 @endsection
 
 @push('scripts')
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.16.1/dist/echo.iife.js"></script>
+
     <script>
-        // --- 1. CLOCK FUNCTION (Add this) ---
+        // --- 2. Configure Echo Manually ---
+        // This takes the values directly from your Blade template
+        window.Pusher = Pusher;
+
+        window.Echo = new Echo({
+            broadcaster: 'reverb',
+            key: "{{ env('REVERB_APP_KEY') }}",
+            wsHost: "{{ env('REVERB_HOST', 'localhost') }}",
+            wsPort: {{ env('REVERB_PORT', 8080) }},
+            wssPort: {{ env('REVERB_PORT', 8080) }},
+            forceTLS: false, // Set to false for local development (http)
+            enabledTransports: ['ws', 'wss'],
+        });
+
+        // --- 3. Clock Function ---
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const clockEl = document.getElementById('system-clock');
-            if(clockEl) {
-                clockEl.innerText = `${hours}:${minutes}`;
-            }
+            if(clockEl) clockEl.innerText = `${hours}:${minutes}`;
         }
-        setInterval(updateClock, 1000); // Update every second
-        updateClock(); // Run immediately on load
+        setInterval(updateClock, 1000);
+        updateClock();
 
-        // --- 2. TRAFFIC LOGIC ---
+        // --- 4. Traffic Logic ---
         window.addEventListener('load', function() {
             const countEl = document.getElementById('static-car-count');
             const densityBar = document.getElementById('density-bar');
-            const densityText = document.getElementById('density-percent');
-            const statusText = document.getElementById('static-status-text');
+            const videoPlayer = document.getElementById('static-player');
             const currentFilename = "{{ $filename ?? '' }}";
 
-            if (typeof window.Echo !== 'undefined' && currentFilename) {
-                window.Echo.channel('traffic-channel')
-                    .listen('TrafficDataUpdated', (e) => {
-                        if (e.source_type === 'static' && e.source_id === currentFilename) {
-                            const count = e.statistics.car_count;
-                            if(countEl) countEl.innerText = count;
+            console.log("--- SYSTEM READY (CDN MODE) ---");
+            console.log("Listening for file:", currentFilename);
 
-                            let percentage = Math.min((count / 50) * 100, 100);
-                            if(densityBar) densityBar.style.width = percentage + '%';
-                            if(densityText) densityText.innerText = Math.round(percentage) + '%';
+            // Debug Connection
+            window.Echo.connector.pusher.connection.bind('connected', () => {
+                console.log("✅ CONNECTED to Reverb Server!");
+            });
 
-                            if(statusText) {
-                                statusText.innerText = "DATA RECEIVED";
-                                statusText.classList.remove('text-muted');
-                                statusText.classList.add('text-success');
-                                setTimeout(() => {
-                                    statusText.innerText = "WAITING STREAM...";
-                                    statusText.classList.remove('text-success');
-                                    statusText.classList.add('text-muted');
-                                }, 800);
-                            }
+            // Listen
+            window.Echo.channel('traffic-channel')
+                .listen('TrafficDataUpdated', (e) => {
+
+                    // console.log("Event:", e); // Uncomment to see raw data
+
+                    // STRICT CHECK: Only update if filename matches
+                    // We use weak comparison (==) to handle potential string/int differences
+                    if (e.source_type == 'static' && e.source_id == currentFilename) {
+
+                        // 1. Update UI
+                        const count = e.statistics.car_count;
+                        if(countEl) countEl.innerText = count;
+
+                        // 2. Move Progress Bar
+                        let percentage = Math.min((count / 20) * 100, 100);
+                        if(densityBar) densityBar.style.width = percentage + '%';
+
+                        // 3. Auto-Play Video (Sync)
+                        if (videoPlayer && videoPlayer.paused) {
+                            console.log("▶️ Data received - Starting Video");
+                            videoPlayer.play();
                         }
-                    });
-            }
+                    }
+                });
         });
     </script>
 @endpush
