@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Events\TrafficDataUpdated;
 use App\Models\TrafficLog;
+use App\Http\Controllers\StaticAnalysisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +49,6 @@ Route::post('/traffic-update', function (Request $request) {
 
     return response()->json(['status' => 'success']);
 });
+
+// The Python worker hits this URL:
+Route::post('/traffic-update', [StaticAnalysisController::class, 'updateData']);

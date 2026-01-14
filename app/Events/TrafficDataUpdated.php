@@ -13,12 +13,9 @@ class TrafficDataUpdated implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $statistics;
-    public $sourceType; // 'live' or 'static'
-    public $sourceId;   // 'cam-01' or 'video_123.mp4'
+    public $sourceType;
+    public $sourceId;
 
-    /**
-     * Create a new event instance.
-     */
     public function __construct($statistics, $sourceType = 'live', $sourceId = null)
     {
         $this->statistics = $statistics;
@@ -26,26 +23,19 @@ class TrafficDataUpdated implements ShouldBroadcastNow
         $this->sourceId = $sourceId;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     */
     public function broadcastOn()
     {
-        // Using a dynamic channel allows the frontend to listen only to the specific source it needs.
-        return new Channel('traffic.' . $this->sourceType . '.' . $this->sourceId);
+        // --- THE FIX IS HERE ---
+        // Do NOT use 'traffic.' . $this->sourceType
+        // Use this exact string:
+        return new Channel('traffic-channel');
     }
 
-    /**
-     * The event's broadcast name.
-     */
     public function broadcastAs()
     {
         return 'TrafficDataUpdated';
     }
 
-    /**
-     * Get the data to broadcast.
-     */
     public function broadcastWith()
     {
         return [

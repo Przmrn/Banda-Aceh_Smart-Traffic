@@ -1,4 +1,4 @@
-@extends('layouts.user_type.auth')
+@extends('layouts.app')
 
 @section('content')
 
@@ -248,6 +248,21 @@
                                 </div>
                             </div>
 
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <div class="p-3 border border-dark bg-black">
+                                        <small class="text-muted font-dot d-block">STATUS</small>
+                                        <span id="static-status-text" class="font-dot text-success fw-bold">WAITING...</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3 border border-dark bg-black">
+                                        <small class="text-muted font-dot d-block">PEAK TRAFFIC</small>
+                                        <span id="peak-count-display" class="font-dot text-white fw-bold">0</span>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="mb-4">
                                 <div class="d-flex justify-content-between mb-1">
                                     <span class="font-dot text-muted fs-7">TRAFFIC DENSITY</span>
@@ -286,67 +301,95 @@
     <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.16.1/dist/echo.iife.js"></script>
 
     <script>
-        // --- 2. Configure Echo Manually ---
-        // This takes the values directly from your Blade template
         window.Pusher = Pusher;
-
         window.Echo = new Echo({
             broadcaster: 'reverb',
             key: "{{ env('REVERB_APP_KEY') }}",
             wsHost: "{{ env('REVERB_HOST', 'localhost') }}",
             wsPort: {{ env('REVERB_PORT', 8080) }},
             wssPort: {{ env('REVERB_PORT', 8080) }},
-            forceTLS: false, // Set to false for local development (http)
+            forceTLS: false,
             enabledTransports: ['ws', 'wss'],
         });
 
-        // --- 3. Clock Function ---
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const clockEl = document.getElementById('system-clock');
-            if(clockEl) clockEl.innerText = `${hours}:${minutes}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        // --- GLOBAL VARIABLES ---
+        let peakCount = 0; // Tracks the highest number of cars seen
 
-        // --- 4. Traffic Logic ---
+        // --- CLOCK ---
+        setInterval(() => {
+            const now = new Date();
+            const el = document.getElementById('system-clock');
+            if(el) el.innerText = String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0');
+        }, 1000);
+
         window.addEventListener('load', function() {
             const countEl = document.getElementById('static-car-count');
             const densityBar = document.getElementById('density-bar');
+            const densityPercent = document.getElementById('density-percent');
+            const statusText = document.getElementById('static-status-text'); // The "PROCESSING..." text
             const videoPlayer = document.getElementById('static-player');
-            const currentFilename = "{{ $filename ?? '' }}";
 
-            console.log("--- SYSTEM READY (CDN MODE) ---");
-            console.log("Listening for file:", currentFilename);
+            // NEW ELEMENTS (We will target the existing UI structure)
+            const analysisCard = document.querySelector('.stat-box-big'); // To change background color
 
-            // Debug Connection
-            window.Echo.connector.pusher.connection.bind('connected', () => {
-                console.log("✅ CONNECTED to Reverb Server!");
-            });
+            console.log("--- ANALYSIS MODULE V2 READY ---");
 
-            // Listen
             window.Echo.channel('traffic-channel')
-                .listen('TrafficDataUpdated', (e) => {
+                .listen('.TrafficDataUpdated', (e) => {
 
-                    // console.log("Event:", e); // Uncomment to see raw data
-
-                    // STRICT CHECK: Only update if filename matches
-                    // We use weak comparison (==) to handle potential string/int differences
-                    if (e.source_type == 'static' && e.source_id == currentFilename) {
-
-                        // 1. Update UI
+                    if(e.statistics && countEl) {
                         const count = e.statistics.car_count;
-                        if(countEl) countEl.innerText = count;
 
-                        // 2. Move Progress Bar
-                        let percentage = Math.min((count / 20) * 100, 100);
-                        if(densityBar) densityBar.style.width = percentage + '%';
+                        // 1. UPDATE CURRENT COUNT
+                        countEl.innerText = count;
 
-                        // 3. Auto-Play Video (Sync)
+                        // 2. UPDATE PEAK COUNT (Simple "Total" approximation)
+                        if(count > peakCount) {
+                            peakCount = count;
+                            // You can add a new element for this if you want,
+                            // for now we log it or update a specific element if exists
+                        }
+
+                        // 3. DENSITY CLASSIFICATION LOGIC
+                        let statusLabel = "UNKNOWN";
+                        let statusColor = "#555";
+                        let barColor = "#28a745"; // Default Green
+
+                        if (count <= 5) {
+                            statusLabel = "LANCAR (CLEAR)";
+                            statusColor = "#28a745"; // Green
+                            barColor = "#28a745";
+                        } else if (count <= 15) {
+                            statusLabel = "RAMAI (MEDIUM)";
+                            statusColor = "#f5a623"; // Orange
+                            barColor = "#f5a623";
+                        } else {
+                            statusLabel = "MACET (HEAVY JAM)";
+                            statusColor = "#D71921"; // Red
+                            barColor = "#D71921";
+                        }
+
+                        // 4. UPDATE UI WITH CLASSIFICATION
+                        // Update the "Processing..." text to show Status instead
+                        if(statusText) {
+                            statusText.innerText = statusLabel;
+                            statusText.style.color = statusColor;
+                            statusText.style.fontWeight = "bold";
+                        }
+
+                        // Update Bar Width & Color
+                        let percentage = Math.min((count / 25) * 100, 100); // Scale based on max 25 cars
+                        if(densityBar) {
+                            densityBar.style.width = percentage + '%';
+                            densityBar.style.backgroundColor = barColor;
+                        }
+                        if(densityPercent) {
+                            densityPercent.innerText = Math.round(percentage) + '%';
+                            densityPercent.style.color = barColor;
+                        }
+
+                        // 5. SYNC VIDEO
                         if (videoPlayer && videoPlayer.paused) {
-                            console.log("▶️ Data received - Starting Video");
                             videoPlayer.play();
                         }
                     }

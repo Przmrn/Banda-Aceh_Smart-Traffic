@@ -48,3 +48,16 @@ Route::get('/test-ws', function () {
     ]));
     return 'Test event dispatched!';
 });
+
+use App\Events\TrafficDataUpdated;
+
+Route::get('/test-broadcast', function () {
+    // 1. Fire the event manually with dummy data
+    event(new TrafficDataUpdated(
+        ['car_count' => 999], // Fake data
+        'static',             // Fake mode
+        'test-file'           // Fake filename
+    ));
+
+    return "Event Fired! Check your browser console.";
+});
